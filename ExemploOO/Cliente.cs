@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Flunt.Notifications;
+using Flunt.Validations;
+using System;
+using System.Collections.Generic;
 
 namespace ExemploOO
 {
-    public class Cliente
+    public class Cliente: Notifiable
     {
         public Cliente(string nome,
             DateTime dataDeNascimento, string userName,
@@ -17,20 +20,13 @@ namespace ExemploOO
             Cpf = cpf;
             DataDeCadastro = DateTime.Now;
 
-            if (Codigo == Guid.Empty)
-            {
-                throw new ApplicationException("Código inválido");
-            }
+            AddNotifications(
+                new Contract()
+                .IsNotNullOrEmpty(Nome, "Nome", "Nome inválido")
+                .IsGreaterOrEqualsThan(Nome.Length, 3 , nameof(Nome), "Nome deve ter no minimo 3 caracteres")
+                .IsTrue(Cpf.Length != 11, "Cpf", "Cpf inválido")
+                );
 
-            if (string.IsNullOrEmpty(Nome) || Nome.Length < 3)
-            {
-                throw new ApplicationException("Nome inválido");
-            }
-
-            if (Cpf.Length != 11)
-            {
-                throw new ApplicationException("Cpf inválido");
-            }
         }
 
         public Guid Codigo { get; private set; }
@@ -45,6 +41,17 @@ namespace ExemploOO
         private string GerarHashDaSenha(string senha)
         {
             return senha;
+        }
+
+        public void Alterar(string nome, string dataDeNascimento,
+            string email, string userName, string cpf)
+        {
+
+        }
+
+        public void AlterarSenha(string senhaAtual, string novaSenha)
+        {
+
         }
     }
 }
