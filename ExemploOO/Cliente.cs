@@ -24,7 +24,7 @@ namespace ExemploOO
                 new Contract()
                 .IsNotNullOrEmpty(Nome, "Nome", "Nome inválido")
                 .IsGreaterOrEqualsThan(Nome.Length, 3 , nameof(Nome), "Nome deve ter no minimo 3 caracteres")
-                .IsTrue(Cpf.Length != 11, "Cpf", "Cpf inválido")
+                .IsFalse(Cpf.Length != 11, "Cpf", "Cpf inválido")
                 );
 
         }
