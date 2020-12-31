@@ -4,11 +4,11 @@ namespace ExemploOO
 {
     public class Cliente
     {
-        public Cliente(int codigo, string nome,
+        public Cliente(string nome,
             DateTime dataDeNascimento, string userName,
             string senha, string email, string cpf)
         {
-            Codigo = codigo;
+            Codigo = Guid.NewGuid();
             Nome = nome;
             DataDeNascimento = dataDeNascimento;
             UserName = userName;
@@ -17,7 +17,7 @@ namespace ExemploOO
             Cpf = cpf;
             DataDeCadastro = DateTime.Now;
 
-            if (Codigo == 0)
+            if (Codigo == Guid.Empty)
             {
                 throw new ApplicationException("Código inválido");
             }
@@ -33,7 +33,7 @@ namespace ExemploOO
             }
         }
 
-        public int Codigo { get; private set; }
+        public Guid Codigo { get; private set; }
         public string Nome { get; private set; }
         public DateTime DataDeNascimento { get; private set; }
         public string UserName { get; private set; }
